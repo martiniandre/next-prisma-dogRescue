@@ -9,7 +9,6 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const { user_id } = req.headers;
-      console.log(user_id);
       const user = await prisma.user.findUnique({
         where: {
           user_id: user_id.toString(),
