@@ -15,7 +15,7 @@ const Navbar = () => {
             <NavAction href="/dog">See dogs</NavAction>
           </div>
         </UserAction>
-        <NavAction data-cy="sign-link" href="/auth">
+        <NavAction data-cy="sign-link" href="/auth/register">
           Sign in/ Sign out
         </NavAction>
         {/* {signed && user ? (

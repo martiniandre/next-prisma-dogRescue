@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Footer from "../common-components/Footer";
 /* import DogService from "../services/DogService"; */
 import { IDogs } from "../types/dogs.type";
@@ -6,28 +6,19 @@ import Newsletter from "../pageComponents/Home/Newsletter";
 import Services from "../pageComponents/Home/Services";
 import ShowDogs from "../pageComponents/Home/ShowDogs";
 import Navbar from "../common-components/Navbar";
+import prisma from "../lib/prisma";
+import { GetServerSideProps } from "next";
 
 export type Search = {
   name: string;
   breed: string;
 };
 
-export default function Home() {
-  const [dogs, setDogs] = useState<IDogs[]>([]);
+export default function Home({ dogs }: { dogs: IDogs[] }) {
   const [dogsAux, setDogsAux] = useState(dogs);
 
-  /*   async function fetchDogs() {
-    const dogs = await DogService.getAll();
-    setDogs(dogs);
-    setDogsAux(dogs);
-  }
-
-  useEffect(() => {
-    fetchDogs();
-  }, []); */
-
   const handleSearch = ({ name, breed }: Search) => {
-    let dog = dogsAux;
+    let dog = dogs;
     if (name) {
       dog = dogsAux.filter((dog) =>
         dog.name.toLowerCase().includes(name.toLowerCase())
@@ -39,7 +30,7 @@ export default function Home() {
       );
     }
 
-    setDogs(dog);
+    setDogsAux(dog);
   };
 
   return (
@@ -52,3 +43,8 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const dogs = await prisma.dog.findMany();
+  return { props: { dogs } };
+};

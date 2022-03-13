@@ -1,3 +1,5 @@
+import { IDogs } from "./dogs.type";
+
 export interface IUser {
   id: string
   name: string;
@@ -6,4 +8,7 @@ export interface IUser {
   street_number: string;
   complement: string;
   district: string;
+  favorite_dogs: IDogs[];
+  created_at: Date;
+  updated_at: Date;
 }

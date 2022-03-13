@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoadingCircle from "../../common-components/Loading";
 /* import DogService from "../../services/DogService"; */
 import { IDogs } from "../../types/dogs.type";
@@ -10,27 +10,13 @@ import {
   Title,
 } from "./styles";
 
-const DogDetails = () => {
+const DogInformation = ({ dog }: { dog: IDogs }) => {
   /* const { dogID } = useParams<"dogID">(); */
   const dogID = null;
-  const [loading, setLoading] = useState(true);
-  const [dog, setDog] = useState<IDogs | null>(null);
-
-  /*   const fetchDog = async () => {
-    if (!dogID) return setDog(null);
-    const dog = await DogService.findOne(dogID).then();
-    setDog(dog);
-    setLoading(false);
-  };
-  useEffect(() => {
-    fetchDog();
-  }, []); */
 
   return (
     <Container>
-      {loading ? (
-        <LoadingCircle isLoading={loading} />
-      ) : !dog ? (
+      {!dog ? (
         <p>Dog not found</p>
       ) : (
         <>
@@ -93,4 +79,4 @@ const DogDetails = () => {
   );
 };
 
-export default DogDetails;
+export default DogInformation;

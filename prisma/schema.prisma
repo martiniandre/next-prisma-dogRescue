@@ -9,3 +9,48 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  user_id       String   @id @default(uuid())
+  name          String
+  type          String
+  email         String   @unique
+  password      String
+  street        String
+  street_number String
+  complement    String
+  district      String
+  favorite_dogs Dog[]
+  updated_at    DateTime @default(now())
+  created_at    DateTime @default(now())
+
+  Group    Group?  @relation(fields: [group_id], references: [group_id])
+  group_id String?
+  @@map("user")
+}
+
+model Dog {
+  dog_id       String @id @default(uuid())
+  photo        String
+  name         String
+  breed        String
+  currentOwner String
+  age          Int
+  location     String
+
+  User     User?   @relation(fields: [user_id], references: [user_id])
+  user_id  String?
+  Group    Group?  @relation(fields: [group_id], references: [group_id])
+  group_id String?
+  @@map("dog")
+}
+
+model Group {
+  group_id    String @id @default(uuid())
+  name        String
+  description String
+  members     User[]
+  dogs        Dog[]
+
+  @@map("groups")
+}

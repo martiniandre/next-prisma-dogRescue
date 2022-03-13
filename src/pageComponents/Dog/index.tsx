@@ -7,15 +7,6 @@ import { ListContainer, MainContent } from "./styles";
 export const Dogs = () => {
   const [dogs, setDogs] = useState<IDogs[]>([]);
 
-  /*   async function fetchDogs() {
-    const dogs = await DogService.getAll();
-    setDogs(dogs);
-  }
-
-  useEffect(() => {
-    fetchDogs();
-  }, []);
- */
   return (
     <MainContent>
       <ListContainer>

@@ -1,11 +1,14 @@
 import { AppProps } from "next/app";
+import { SessionProvider } from "../context/session";
 import GlobalStyles from "../styles/global";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <SessionProvider>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 }
